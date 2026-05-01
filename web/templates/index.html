@@ -1,0 +1,161 @@
+{{define "content"}}
+<!-- Hero shell: navigation + first-screen marketing content. -->
+<header class="hero-shell">
+	<!-- Top navigation with brand and anchor links to page sections. -->
+	<nav class="nav">
+		<div class="brand">
+			<div class="brand-mark"></div>
+			<div>
+				<p class="brand-kicker">{{.Site.Tagline}}</p>
+				<h1>{{.Site.BrandName}}</h1>
+			</div>
+		</div>
+		<div class="nav-links">
+			<a href="#rooms">Номера</a>
+			<a href="#gallery">Галерея</a>
+			<a href="#contact">Контакты</a>
+		</div>
+	</nav>
+
+	<!-- Main hero section with CTA and either custom image or fallback art. -->
+	<section class="hero">
+		<div class="hero-copy">
+			<p class="eyebrow">{{.Site.Tagline}}</p>
+			<h2>{{.Site.HeroTitle}}</h2>
+			<p class="lead">{{.Site.HeroSubtitle}}</p>
+			<div class="hero-actions">
+				<a class="button primary" href="{{.Site.BookingURL}}">Забронировать номер</a>
+				<a class="button ghost" href="#rooms">Смотреть категории</a>
+			</div>
+			<div class="season-card">
+				<strong>Сезонная информация</strong>
+				<p>{{.Site.SeasonNote}}</p>
+			</div>
+		</div>
+		<div class="hero-art">
+			<!-- If image is uploaded, render media; otherwise render decorative fallback with check-in/out facts. -->
+			{{if .Site.HeroImagePath}}
+			<img class="hero-image" src="{{.Site.HeroImagePath}}" alt="{{.Site.HeroTitle}}" />
+			{{else}}
+			<div class="sun"></div>
+			<div class="pool-card">
+				<p class="stat-label">Заезд</p>
+				<p class="stat-value">{{.Site.CheckIn}}</p>
+				<p class="stat-label">Выезд</p>
+				<p class="stat-value">{{.Site.CheckOut}}</p>
+			</div>
+			{{end}}
+		</div>
+	</section>
+</header>
+
+<main>
+	<!-- About section: conceptual positioning + static amenities grid. -->
+	<section class="section two-col">
+		<div>
+			<p class="section-tag">О концепции</p>
+			<h3>{{.Site.AboutTitle}}</h3>
+			<p>{{.Site.AboutBody}}</p>
+		</div>
+		<div class="amenities">
+			<div class="amenity">
+				<h4>Подогреваемый бассейн</h4>
+				<p>Центральная зона отдыха во дворе, вдохновленная атмосферой курортного отеля.</p>
+			</div>
+			<div class="amenity">
+				<h4>Терраса для отдыха</h4>
+				<p>Открытые пространства, тень и комфортное перемещение между номерами и общими зонами.</p>
+			</div>
+			<div class="amenity">
+				<h4>Прямое бронирование</h4>
+				<p>Простой сценарий бронирования через контакт с гостем без лишних шагов.</p>
+			</div>
+			<div class="amenity">
+				<h4>Номера для летнего отдыха</h4>
+				<p>Акцент на кондиционирование, варианты с балконом и удобство для семейных поездок.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Rooms section: dynamic room catalog rendered from .Rooms collection. -->
+	<section class="section" id="rooms">
+		<div class="section-head">
+			<div>
+				<p class="section-tag">Номера</p>
+				<h3>Категории номеров в структуре курортного каталога</h3>
+			</div>
+			<p class="muted">Замените стартовые позиции на реальные номера после заполнения контента.</p>
+		</div>
+		<div class="room-grid">
+			<!-- Each room card supports image override with gradient fallback artwork. -->
+			{{range .Rooms}}
+			<article class="room-card">
+				{{if .ImagePath}}
+				<img class="media-image room-art" src="{{.ImagePath}}" alt="{{.Name}}" />
+				{{else}}
+				<div class="room-art"></div>
+				{{end}}
+				<p class="room-note">{{.FeatureNote}}</p>
+				<h4>{{.Name}}</h4>
+				<p>{{.Summary}}</p>
+				<div class="room-meta">
+					<span>До {{.Capacity}} гостей</span>
+					<span>{{.SizeSQM}} m²</span>
+					<span>{{.RoomCount}} комн.</span>
+				</div>
+			</article>
+			{{end}}
+		</div>
+	</section>
+
+	<!-- Gallery section: dynamic cards with image mode or tone-based fallback style. -->
+	<section class="section" id="gallery">
+		<div class="section-head">
+			<div>
+				<p class="section-tag">Галерея</p>
+				<h3>Фасад, терраса, балконы и бассейн</h3>
+			</div>
+		</div>
+		<div class="gallery-grid">
+			{{range .Gallery}}
+			<!-- Adds `with-image` class when image exists; otherwise falls back to tone-* class. -->
+			<article class="gallery-card {{if .ImagePath}}with-image{{else}}tone-{{.Tone}}{{end}}">
+				{{if .ImagePath}}
+				<img class="media-image gallery-image" src="{{.ImagePath}}" alt="{{.Title}}" />
+				{{end}}
+				<div>
+					<h4>{{.Title}}</h4>
+					<p>{{.Subtitle}}</p>
+				</div>
+			</article>
+			{{end}}
+		</div>
+	</section>
+
+	<!-- Contact + snapshot section: booking contacts and latest captured source metadata. -->
+	<section class="section contact-grid" id="contact">
+		<div class="contact-card">
+			<p class="section-tag">Контакты</p>
+			<h3>Бронирование и связь с гостями</h3>
+			<p>Используйте этот блок для телефона, WhatsApp, Telegram, карты и информации о трансфере.</p>
+			<ul class="contact-list">
+				<li><strong>Адрес:</strong> {{.Site.Address}}</li>
+				<li><strong>Телефон:</strong> {{.Site.Phone}}</li>
+				<li><strong>Email:</strong> {{.Site.Email}}</li>
+			</ul>
+		</div>
+		<div class="contact-card" id="booking">
+			<p class="section-tag">Снимок источника</p>
+			<h3>Последние сохраненные данные страницы</h3>
+			<!-- Snapshot block is optional; show informative placeholder when absent. -->
+			{{if .Snapshot}}
+			<p>Последняя сохраненная страница: <strong>{{.Snapshot.PageTitle}}</strong></p>
+			<p class="muted">{{.Snapshot.Description}}</p>
+			<p class="muted">Источник: {{.Snapshot.SourceURL}}.</p>
+			{{else}}
+			<p>Снимки источника пока не сохранены в базе данных.</p>
+			{{end}}
+		</div>
+	</section>
+</main>
+{{end}}

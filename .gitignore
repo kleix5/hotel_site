@@ -1,0 +1,9 @@
+.DS_Store
+.env
+.env.local
+tmp/
+dist/
+bin/
+mysql_data/
+web/static/uploads/*
+!web/static/uploads/.gitkeep

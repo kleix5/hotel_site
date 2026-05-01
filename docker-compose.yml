@@ -1,0 +1,47 @@
+# docker-compose.yml defines local dev stack with MySQL and Go app.
+services:
+  # db is the persistent MySQL service storing content and snapshots.
+  db:
+    image: mysql:8.4
+    container_name: resort_clone_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-resort_clone}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      # Wait until MySQL accepts local TCP connections before app starts.
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p${MYSQL_ROOT_PASSWORD:-password}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # app is the public HTTP server built from local source.
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: resort_clone_app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_ADDR: ${APP_ADDR:-:8080}
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-resort_clone}
+    ports:
+      - "${APP_PORT:-8080}:8080"
+    volumes:
+      # Keep uploads on host so media persists between container restarts/rebuilds.
+      - ./web/static/uploads:/app/web/static/uploads
+
+# Named volume for MySQL internal data files.
+volumes:
+  mysql_data:

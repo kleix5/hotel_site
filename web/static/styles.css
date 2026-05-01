@@ -1,0 +1,445 @@
+/* Design tokens: shared colors, surfaces, and elevation used across components. */
+:root {
+	--bg: #f8f4ea;
+	--surface: rgba(255, 255, 255, 0.72);
+	--surface-strong: #fffaf1;
+	--ink: #24313f;
+	--muted: #5e6a77;
+	--line: rgba(36, 49, 63, 0.12);
+	--accent: #157a8a;
+	--accent-strong: #0a5661;
+	--sand: #e8c78c;
+	--peach: #d98e73;
+	--shadow: 0 24px 60px rgba(36, 49, 63, 0.12);
+}
+
+/* Global reset for predictable box model sizing. */
+* {
+	box-sizing: border-box;
+}
+
+/* Smooth anchor scrolling for in-page navigation links. */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Base page typography and atmospheric background gradients. */
+body {
+	margin: 0;
+	font-family: "Avenir Next", "Segoe UI", sans-serif;
+	color: var(--ink);
+	background:
+		radial-gradient(circle at top left, rgba(232, 199, 140, 0.35), transparent 30%),
+		linear-gradient(180deg, #fcf7ec 0%, #f7f1e6 54%, #fffaf4 100%);
+}
+
+/* Links inherit text color and rely on component styles for emphasis. */
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* Shared horizontal gutters for top-level page sections. */
+.hero-shell,
+.section {
+	padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+/* Common max-width container constraints for major layout blocks. */
+.nav,
+.hero,
+.section,
+main {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+/* Header navigation layout. */
+.nav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-block: 1.25rem;
+}
+
+/* Brand block next to navigation links. */
+.brand {
+	display: flex;
+	align-items: center;
+	gap: 0.9rem;
+}
+
+/* Decorative brand icon. */
+.brand-mark {
+	width: 2.8rem;
+	height: 2.8rem;
+	border-radius: 18px;
+	background: linear-gradient(135deg, var(--sand), var(--peach));
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+/* Small uppercase helper text style reused in multiple components. */
+.brand-kicker,
+.eyebrow,
+.section-tag,
+.room-note,
+.stat-label {
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	font-size: 0.75rem;
+	color: var(--muted);
+}
+
+/* Serif heading style shared by key title elements. */
+.brand h1,
+.hero h2,
+.section h3,
+.gallery-card h4,
+.room-card h4,
+.contact-card h3 {
+	font-family: Georgia, "Times New Roman", serif;
+	line-height: 1.02;
+	margin: 0;
+}
+
+/* Inline navigation link row. */
+.nav-links {
+	display: flex;
+	gap: 1.4rem;
+}
+
+/* Hero two-column desktop layout. */
+.hero {
+	display: grid;
+	grid-template-columns: 1.1fr 0.9fr;
+	gap: 2rem;
+	padding-block: 3rem 4.5rem;
+	align-items: center;
+}
+
+/* Main hero headline scale adapts with viewport width. */
+.hero h2 {
+	font-size: clamp(2.8rem, 6vw, 5.8rem);
+	max-width: 11ch;
+}
+
+/* Shared paragraph/body text style for readability. */
+.lead,
+.section p,
+.contact-list,
+.room-card p,
+.gallery-card p {
+	font-size: 1.05rem;
+	line-height: 1.7;
+	color: var(--muted);
+}
+
+/* CTA button group in hero section. */
+.hero-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	margin-block: 2rem;
+}
+
+/* Base button component. */
+.button {
+	padding: 0.95rem 1.4rem;
+	border-radius: 999px;
+	font-weight: 700;
+	border: 1px solid transparent;
+	transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+/* Subtle hover lift animation for interactive buttons. */
+.button:hover {
+	transform: translateY(-2px);
+}
+
+/* Primary CTA button variant. */
+.button.primary {
+	background: var(--accent);
+	color: white;
+}
+
+/* Primary CTA hover state. */
+.button.primary:hover {
+	background: var(--accent-strong);
+}
+
+/* Secondary ghost button variant. */
+.button.ghost {
+	background: rgba(255, 255, 255, 0.5);
+	border-color: var(--line);
+}
+
+/* Glassmorphism surface style shared by several cards. */
+.season-card,
+.pool-card,
+.amenity,
+.room-card,
+.gallery-card,
+.contact-card {
+	background: var(--surface);
+	backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	box-shadow: var(--shadow);
+}
+
+/* Seasonal note card in hero copy area. */
+.season-card {
+	max-width: 34rem;
+	padding: 1.2rem 1.3rem;
+	border-radius: 1.4rem;
+}
+
+/* Hero art container for image/fallback composition. */
+.hero-art {
+	position: relative;
+	min-height: 30rem;
+	display: grid;
+	place-items: center;
+}
+
+/* Uploaded hero image presentation. */
+.hero-image {
+	width: min(28rem, 100%);
+	height: min(32rem, 70vw);
+	object-fit: cover;
+	border-radius: 2rem;
+	box-shadow: var(--shadow);
+	border: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+/* Decorative fallback gradient "sun" shape when no hero image exists. */
+.sun {
+	position: absolute;
+	inset: 0;
+	margin: auto;
+	width: min(28rem, 100%);
+	aspect-ratio: 1;
+	border-radius: 48% 52% 42% 58%;
+	background:
+		linear-gradient(180deg, rgba(217, 142, 115, 0.9), rgba(232, 199, 140, 0.55)),
+		linear-gradient(180deg, rgba(21, 122, 138, 0.25), rgba(10, 86, 97, 0.55));
+	filter: blur(1px);
+}
+
+/* Stats card shown over fallback hero art. */
+.pool-card {
+	position: relative;
+	width: min(22rem, 90%);
+	padding: 2rem;
+	border-radius: 2rem;
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.45)),
+		linear-gradient(135deg, rgba(21, 122, 138, 0.35), rgba(232, 199, 140, 0.15));
+}
+
+/* Numeric emphasis for check-in/check-out values. */
+.stat-value {
+	font-size: 2.4rem;
+	font-weight: 700;
+	margin: 0.1rem 0 1rem;
+}
+
+/* Shared vertical spacing for all content sections. */
+.section {
+	padding-block: 2rem 4.5rem;
+}
+
+/* Reusable two-column grid sections. */
+.two-col,
+.contact-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.5rem;
+}
+
+/* Nested amenities grid inside about section. */
+.amenities {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+}
+
+/* Shared card padding and rounding for amenity/contact cards. */
+.amenity,
+.contact-card {
+	padding: 1.3rem;
+	border-radius: 1.3rem;
+}
+
+/* Section header row with title on left and helper copy on right. */
+.section-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+	gap: 1rem;
+	margin-bottom: 1.25rem;
+}
+
+/* Utility muted color helper. */
+.muted {
+	color: var(--muted);
+}
+
+/* Reusable three-column card grids for rooms and gallery. */
+.room-grid,
+.gallery-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1.2rem;
+}
+
+/* Room card container style. */
+.room-card {
+	padding: 1rem;
+	border-radius: 1.5rem;
+}
+
+/* Gradient placeholder art for rooms when no image path is set. */
+.room-art {
+	height: 13rem;
+	border-radius: 1rem;
+	background:
+		linear-gradient(160deg, rgba(21, 122, 138, 0.18), rgba(232, 199, 140, 0.55)),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(217, 142, 115, 0.2));
+	margin-bottom: 1rem;
+}
+
+/* Shared media image behavior for responsive cards. */
+.media-image {
+	width: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+/* Compact metadata chips shown under room summaries. */
+.room-meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+	margin-top: 1rem;
+}
+
+/* Individual room metadata chip style. */
+.room-meta span {
+	padding: 0.45rem 0.8rem;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.8);
+	border: 1px solid var(--line);
+	font-size: 0.9rem;
+}
+
+/* Base gallery card style. */
+.gallery-card {
+	min-height: 15rem;
+	border-radius: 1.5rem;
+	padding: 1.3rem;
+	display: flex;
+	align-items: end;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Layout variant for gallery cards with uploaded image. */
+.gallery-card.with-image {
+	padding: 0;
+	align-items: stretch;
+}
+
+/* Bottom gradient overlay panel for text over gallery images. */
+.gallery-card.with-image > div {
+	position: absolute;
+	inset-inline: 0;
+	bottom: 0;
+	padding: 1.2rem;
+	background: linear-gradient(180deg, transparent, rgba(36, 49, 63, 0.84));
+	color: white;
+}
+
+/* Gallery image dimensions and cropping behavior. */
+.gallery-image {
+	height: 100%;
+	min-height: 15rem;
+}
+
+/* Fallback gallery gradient themes selected via dynamic `tone-*` class. */
+.tone-sunrise {
+	background: linear-gradient(180deg, rgba(217, 142, 115, 0.88), rgba(245, 222, 185, 0.45));
+}
+
+.tone-aqua {
+	background: linear-gradient(180deg, rgba(21, 122, 138, 0.95), rgba(173, 227, 232, 0.4));
+}
+
+.tone-sand {
+	background: linear-gradient(180deg, rgba(232, 199, 140, 0.95), rgba(255, 250, 241, 0.75));
+}
+
+.tone-twilight {
+	background: linear-gradient(180deg, rgba(76, 97, 130, 0.92), rgba(217, 142, 115, 0.4));
+	color: white;
+}
+
+/* Contact list reset for cleaner card presentation. */
+.contact-list {
+	list-style: none;
+	padding: 0;
+	margin: 1rem 0 0;
+}
+
+/* Vertical rhythm between contact list entries. */
+.contact-list li + li {
+	margin-top: 0.7rem;
+}
+
+/* Mobile/tablet breakpoint collapses multi-column grids into single column. */
+@media (max-width: 900px) {
+	.hero,
+	.two-col,
+	.contact-grid,
+	.room-grid,
+	.gallery-grid,
+	.amenities {
+		grid-template-columns: 1fr;
+	}
+
+	.nav {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	.section-head {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+
+/* Full-page centering shell for 404 screen. */
+.not-found-shell {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	padding: 2rem;
+}
+
+/* 404 content card with same visual language as main page cards. */
+.not-found-card {
+	width: min(100%, 38rem);
+	padding: 2rem;
+	border-radius: 1.5rem;
+	background: var(--surface);
+	backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.5);
+	box-shadow: var(--shadow);
+}
+
+/* Serif display headline for 404 title. */
+.not-found-card h1 {
+	font-family: Georgia, "Times New Roman", serif;
+	font-size: clamp(2.2rem, 6vw, 4rem);
+	margin: 0 0 1rem;
+}

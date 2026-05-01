@@ -1,0 +1,38 @@
+Database: resort_clone
+Generated: 2026-04-04
+
+Note:
+- The live database currently contains 4 non-system tables, not 38.
+- If you expected 38, that data is likely in another schema/instance.
+
+1) Table: site_content
+Necessity:
+- This table is required to store global homepage content and business contact data in one editable place.
+- Without it, the app cannot render the main hero text, about section, check-in/check-out details, or contact block.
+Short summary:
+- Singleton-style content table (app reads the first row as active content).
+- Contains branding, hero copy, booking URL, contacts, and about text.
+
+2) Table: rooms
+Necessity:
+- This table is required to power the room catalog section on the homepage.
+- Without it, the app cannot present room categories, capacity, size, and room-specific highlights.
+Short summary:
+- Multi-row list of room categories.
+- Each record represents one room card with descriptive and numeric metadata.
+
+3) Table: gallery_items
+Necessity:
+- This table is required for gallery rendering and visual storytelling on the homepage.
+- Without it, the app cannot show gallery cards/images and fallback tone-based visual tiles.
+Short summary:
+- Multi-row gallery content collection.
+- Stores title/subtitle and either uploaded image path or fallback tone key.
+
+4) Table: scrape_snapshots
+Necessity:
+- This table is required for preserving captured source-page snapshots for reference and auditing.
+- Without it, the app cannot show the "latest saved source data" panel.
+Short summary:
+- Append-oriented snapshot history table.
+- Stores source URL, page title, description, markdown, HTML, and creation timestamp.
