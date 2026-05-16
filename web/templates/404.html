@@ -1,0 +1,24 @@
+{{define "not_found"}}
+<!-- Standalone custom 404 page rendered for unsupported routes. -->
+<!doctype html>
+<html lang="ru">
+	<head>
+		<!-- Basic metadata + shared public stylesheet. -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Страница не найдена</title>
+		<link rel="stylesheet" href="/static/styles.css" />
+	</head>
+	<body>
+		<!-- Card-based fallback content with requested path and return action. -->
+		<main class="not-found-shell">
+			<section class="not-found-card">
+				<p class="section-tag">404</p>
+				<h1>Страница не найдена</h1>
+				<p>Маршрут <strong>{{.Path}}</strong> пока отсутствует в этом шаблоне.</p>
+				<a class="button primary" href="/">На главную</a>
+			</section>
+		</main>
+	</body>
+</html>
+{{end}}

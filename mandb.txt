@@ -1,0 +1,65 @@
+NOTE:
+- This document is a human-oriented quick reference for the MySQL data model.
+- It complements db/schema.sql and repository code by summarizing runtime behavior.
+
+resort_clone database quick summary
+==================================
+
+DB type
+- MySQL (used by docker-compose service: db)
+- Default database name: resort_clone
+
+Main tables
+1) site_content
+- Purpose: Global homepage content (single active row is expected)
+- Key fields:
+  id, brand_name, tagline, hero_title, hero_subtitle, hero_image_path,
+  season_note, booking_url, address, phone, email,
+  check_in, check_out, about_title, about_body,
+  created_at, updated_at
+
+2) rooms
+- Purpose: Room cards shown on homepage
+- Key fields:
+  id, name, summary, capacity, size_sqm, room_count, feature_note, image_path
+
+3) gallery_items
+- Purpose: Gallery cards shown on homepage
+- Key fields:
+  id, title, subtitle, tone, image_path
+
+4) scrape_snapshots
+- Purpose: Saved source snapshots/metadata (read-only for display in current app)
+- Key fields:
+  id, source_url, page_title, description, markdown, html, created_at
+
+How app reads data
+- Homepage loader reads:
+  - first row from site_content (ORDER BY id ASC LIMIT 1)
+  - all rows from rooms (ORDER BY id ASC)
+  - all rows from gallery_items (ORDER BY id ASC)
+  - latest row from scrape_snapshots (ORDER BY id DESC LIMIT 1), if present
+
+Seed behavior
+- On startup, app auto-creates schema if tables do not exist.
+- If tables are empty, app inserts default content for:
+  site_content, rooms, gallery_items.
+- Existing rows are NOT overwritten by seeding.
+
+Common manual update targets
+- Section "О концепции":
+  site_content.about_title, site_content.about_body
+- Contacts:
+  site_content.address, site_content.phone, site_content.email
+- Hero:
+  site_content.hero_title, site_content.hero_subtitle
+
+Useful SQL snippets
+- Inspect about text:
+  SELECT id, about_title, about_body FROM site_content;
+
+- Update about text (row 1):
+  UPDATE site_content
+  SET about_title='...',
+      about_body='...'
+  WHERE id=1;

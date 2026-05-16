@@ -1,0 +1,20 @@
+{{define "layout"}}
+<!-- Base HTML shell shared by template pages. -->
+<!doctype html>
+<html lang="ru">
+	<head>
+		<!-- Charset + viewport for proper rendering on modern devices. -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- SEO/title metadata comes from dynamic site content. -->
+		<title>{{.Site.HeroTitle}}</title>
+		<meta name="description" content="{{.Site.HeroSubtitle}}" />
+		<!-- Global stylesheet for all public pages. -->
+		<link rel="stylesheet" href="/static/styles.css" />
+	</head>
+	<body>
+		<!-- Inject page-specific content block. -->
+		{{template "content" .}}
+	</body>
+</html>
+{{end}}
