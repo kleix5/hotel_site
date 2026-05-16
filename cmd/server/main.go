@@ -7,9 +7,9 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"github.com/pavom/resort-clone/internal/config"
-	httpapp "github.com/pavom/resort-clone/internal/http"
-	"github.com/pavom/resort-clone/internal/repository"
+	"hotel_site/internal/config"
+	httpapp "hotel_site/internal/http"
+	"hotel_site/internal/repository"
 )
 
 // main composes the whole application lifecycle:

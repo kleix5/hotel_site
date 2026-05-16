@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/pavom/resort-clone/internal/service"
+	"hotel_site/internal/service"
 )
 
 // Repository is a MySQL-backed implementation for content storage and retrieval.

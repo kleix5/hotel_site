@@ -8,8 +8,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/pavom/resort-clone/internal/repository"
-	"github.com/pavom/resort-clone/internal/service"
+	"hotel_site/internal/repository"
+	"hotel_site/internal/service"
 )
 
 // contentRepository is the minimal read contract needed by public HTTP handlers.

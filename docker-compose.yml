@@ -3,7 +3,7 @@ services:
   # db is the persistent MySQL service storing content and snapshots.
   db:
     image: mysql:8.4
-    container_name: resort_clone_db
+    container_name: hotel_site_db
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
@@ -24,7 +24,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: resort_clone_app
+    container_name: hotel_site_app
     restart: unless-stopped
     depends_on:
       db:

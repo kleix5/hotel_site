@@ -1,5 +1,5 @@
 // Module path used for imports inside this repository.
-module github.com/pavom/resort-clone
+module hotel_site
 
 // Minimum Go toolchain version expected by this project.
 go 1.23.0

@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/pavom/resort-clone/internal/service"
+	"hotel_site/internal/service"
 )
 
 // stubRepository is an in-memory test double implementing contentRepository.
